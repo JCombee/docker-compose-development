@@ -32,6 +32,10 @@ To control your docker environment.
   run one-off commands in new container
 - `setup`
   Run setup for defaults
+- `script`
+  run a set of commands defined in the .scripts.yml (see example .scripts.yml)
+- `script init`
+  initialize the .scripts.yml file (in your current directory) with a set of basic commands
 - `start`
   start all exising container, will not create them if they don't exist(use `up` instead)
 - `status`

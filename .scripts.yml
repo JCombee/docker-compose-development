@@ -1,0 +1,10 @@
+# this is the .scripts.yml example
+
+# run `dev script example`
+example:
+  - echo This is a example command
+
+# run `dev script install` to install composer and npm packages
+install:
+  - npm install
+  - composer install

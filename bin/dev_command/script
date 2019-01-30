@@ -1,0 +1,38 @@
+
+DEV_SCRIPTS_FILE=${DEV_USERDIR}/.scripts.yml
+DEV_SCRIPTS_FILENAME=.scripts.yml
+
+if [ $1 == "init" ]; then
+    cat > ${DEV_SCRIPTS_FILE} <<- EOM
+bootstrap:
+  - echo Begin Bootstraping...
+
+setup:
+  - echo Begin Setup...
+
+update:
+  - echo Begin Update...
+
+server:
+  - echo Begin Server...
+
+test:
+  - echo Begin Test...
+
+cibuild:
+  - echo Begin CI Build...
+
+console:
+  - echo Begin Console...
+
+EOM
+    exit 0;
+fi
+
+if [ -f ${DEV_SCRIPTS_FILE} ]; then
+    sh -c "cd ${DEV_USERDIR} && $(cat ${DEV_SCRIPTS_FILE} | docker run -i --rm deitch/yq .${1} | sed -e 's/^-/ /g')"
+else
+   echo "${DEV_SCRIPTS_FILENAME} doesn not exists."
+fi
+
+exit 0;
