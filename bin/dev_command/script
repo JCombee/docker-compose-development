@@ -30,7 +30,13 @@ EOM
 fi
 
 if [ -f ${DEV_SCRIPTS_FILE} ]; then
-    sh -c "cd ${DEV_USERDIR} && $(cat ${DEV_SCRIPTS_FILE} | docker run -i --rm deitch/yq .${1} | sed -e 's/^-/ /g')"
+    DEV_SCRIPTS_EXECUTE=$(sh -c "cd ${DEV_USERDIR} && cat ${DEV_SCRIPTS_FILE} | docker run -i --rm deitch/yq .${1} | sed -e 's/^-/ /g'")
+
+    if [ -z "$DEV_SCRIPTS_EXECUTE" ]; then
+        echo "the '${1}' script does not exist"
+    else
+        sh -c "cd ${DEV_USERDIR} && ${DEV_SCRIPTS_EXECUTE}"
+    fi
 else
    echo "${DEV_SCRIPTS_FILENAME} doesn not exists."
 fi
